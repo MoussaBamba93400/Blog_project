@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/main.css" rel="stylesheet">
     <title>Document</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/js/app.js','resources/css/app.css'])
+    
 </head>
 <body>
-    <main id="app">
-
-    </main>
-    @vite('resources/js/app.js')
+    <div id="app">
+      
+   </div>
+    
 </body>
 </html>
