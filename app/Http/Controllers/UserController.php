@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\Requests;
+use Illuminate\Support\Facades\Hash;
+
+
+
+
 
 class UserController extends Controller
 {
@@ -18,11 +24,9 @@ class UserController extends Controller
         $users = User::all();
 
 
-        return response()->json([
-            'status' => true,
-            'posts' => $users
-    ]);
-    
+
+
+
     }
 
     /**
@@ -41,9 +45,36 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+
+
+      $test = User::where('email', $request->email)->exists();
+
+
+
+
+
+      if($test) {
+        return response()->json([
+            'content' => 'User already exist!'
+        ], 200);
+      } else {
+
+
+       $user = new User;
+
+       $user->email = $request->email;
+       $user->name = $request->name;
+       $user->password =  Hash::make($request->password, ['rounds' => 12]);
+
+
+       $user->save();
+
+       return response()->json([
+        'content' => 'Success !'
+       ], 200);
+    }
     }
 
     /**
