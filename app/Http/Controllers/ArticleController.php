@@ -20,8 +20,9 @@ class ArticleController extends Controller
 
         $articles = Article::all();
 
-       echo url('images/profile.jpg');
-
+      return response()->json([
+        'content' => $articles
+      ], 200);
 
 
     }

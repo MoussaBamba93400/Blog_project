@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
-
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,8 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/v1/users', [UserController::class, 'index']);
 Route::get('/v1/user/:id', [UserController::class, 'index']);
 
-Route::post('/v1/user/register', [UserController::class, 'store']);
-Route::post('/v1/user/auth/login', [UserController::class, 'index']);
+// test route
+Route::get('/roles', [UserController::class, 'i']);
+
+
+Route::post('/v1/user/register', [UserController::class, 'createUser']);
+Route::post('/v1/user/auth/login', [UserController::class, 'loginUser']);
 
 
 
@@ -32,5 +35,6 @@ Route::post('/v1/user/auth/login', [UserController::class, 'index']);
 
 
 
+Route::apiResource('/articles', [ArticleController::class, 'index'])->middleware('auth:sanctum');
 
-Route::get('/articles', [ArticleController::class, 'index']);
+?>
