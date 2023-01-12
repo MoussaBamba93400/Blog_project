@@ -62,8 +62,44 @@ class CommentController extends Controller
 
         $comment->body = $request->body;
 
+        $comment->save();
+
         return response()->json([
             'message' => 'comment updated',
+            'comment' => $comment
+        ], 200);
+    }
+
+    public function activate(Request $request)
+    {
+        $comment = Comment::find($request->id);
+
+        $comment->is_active = true;
+
+
+        $comment->save();
+
+
+        return response()->json([
+            'message' => 'comment as been activated',
+            'comment' => $comment
+        ], 200);
+    }
+
+
+
+    public function desactivate(Request $request)
+    {
+        $comment = Comment::find($request->id);
+
+        $comment->is_active = false;
+
+
+        $comment->save();
+
+
+        return response()->json([
+            'message' => 'comment as been desactivated',
             'comment' => $comment
         ], 200);
     }

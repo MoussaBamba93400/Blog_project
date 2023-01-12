@@ -31,4 +31,9 @@ Route::post('v1/article/{id}/comment', [CommentController::class, 'create']);
 Route::get('v1/article/{id}/comments', [CommentController::class, 'index']);
 
 Route::delete('v1/comment/{id}', [CommentController::class, 'delete']);
+
 Route::put('v1/comment/{id}', [CommentController::class, 'modify']);
+Route::put('v1/comment/{id}/activate', [CommentController::class, 'activate']);
+Route::put('v1/comment/{id}/desactivate', [CommentController::class, 'desactivate']);
+
+
