@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Article;
 
 class ArticleController extends Controller
@@ -64,7 +63,36 @@ public function modify(Request $request)
 {
     $article = Article::find($request->id);
 
-    $article->title
+
+    if($request->body) {
+      $article->body = $request->body;
+    }
+
+    if($request->image_path) {
+        $article->image_path = $request->image_path;
+    }
+
+    $article->save();
+
+
+    return response()->json([
+        'message' => 'successfuly updated',
+        'article' => $article
+    ]);
+
+
+
+}
+
+public function delete(Request $request)
+{
+    $article = Article::find($request->id);
+
+    $article->delete();
+
+    return response()->json([
+        'message' => 'successfuly deleted'
+    ], 200);
 }
 
 }
