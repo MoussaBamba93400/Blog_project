@@ -1,95 +1,70 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Article;
-
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
 
 
-        $articles = Article::all();
+public function index()
+{
+    $articles = Article::all();
 
-      return response()->json([
-        'content' => $articles
-      ], 200);
+        return response()->json([
+            'status' => 'Success',
+            'articles' => $articles
+        ]);
 
 
-    }
+}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createArticle()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function showArticle(Article $article)
-    {
-        //
-    }
+public function create(Request $request) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
-    {
-        //
-    }
+    $request->validate([
+        'user_id' => 'required',
+        'title' => 'required|string',
+        'image_path' => 'string',
+        'body' => 'string'
+    ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Article $article)
-    {
-        //
-    }
+    $article = Article::create([
+        'user_id' => $request->user_id,
+        'title' => $request->title,
+        'image_path' => $request->image_path,
+        'body' => $request->body,
+    ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
-    {
-        //
-    }
+    return response()->json([
+        'status' => 'Success',
+        'message' => 'article successfuly created',
+        'article' => $article
+    ], 200);
+
+}
+
+public function getArticle(Request $request)
+{
+    $article = Article::find($request->id);
+
+    return response()->json([
+        'status' => 'success',
+        'article' => $article
+    ]);
+
+}
+
+
+public function modify(Request $request)
+{
+    $article = Article::find($request->id);
+
+    $article->title
+}
+
 }

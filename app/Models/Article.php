@@ -12,16 +12,16 @@ class Article extends Model
 
     protected $table = 'article';
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'image_path',
+        'title',
     ];
 
 
     protected $visible = [
-        'name',
-        'email',
-        'password'
+        'user_id',
+        'image_path',
+        'title'
     ];
 
 }

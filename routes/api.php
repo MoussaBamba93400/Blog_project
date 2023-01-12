@@ -1,40 +1,24 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-
-Route::get('/v1/users', [UserController::class, 'index']);
-Route::get('/v1/user/:id', [UserController::class, 'index']);
-
-// test route
-Route::get('/roles', [UserController::class, 'i']);
-
-
-Route::post('/v1/user/register', [UserController::class, 'createUser']);
-Route::post('/v1/user/auth/login', [UserController::class, 'loginUser']);
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
 
 
 
 
+ Route::post('/v1/user/register', [AuthController::class, 'register']);
+ Route::post('/v1/user/auth/login', [AuthController::class,'login']);
+
+Route::get('/v1/users', [AuthController::class, 'index']);
+Route::get('/v1/user/{id}', [AuthController::class, 'getUser']);
+
+Route::put('v1/user/{id}', [AuthController::class, 'modify']);
 
 
+Route::post('v1/article', [ArticleController::class, 'create']);
+Route::get('v1/articles', [ArticleController::class, 'index']);
 
-
-Route::apiResource('/articles', [ArticleController::class, 'index'])->middleware('auth:sanctum');
-
-?>
+Route::get('v1/article/{id}', [ArticleController::class, 'getArticle']);
+Route::put('v1/article/{id}', [ArticleController::class, 'modify'])
