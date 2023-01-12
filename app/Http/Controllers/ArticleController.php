@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
+
+
 
 class ArticleController extends Controller
 {
@@ -23,14 +27,7 @@ public function index()
 
 
 
-public function create(Request $request) {
-
-    $request->validate([
-        'user_id' => 'required',
-        'title' => 'required|string',
-        'image_path' => 'string',
-        'body' => 'string'
-    ]);
+public function create(ArticleRequest $request) {
 
     $article = Article::create([
         'user_id' => $request->user_id,
