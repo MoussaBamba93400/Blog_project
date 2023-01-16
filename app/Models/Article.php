@@ -20,6 +20,7 @@ class Article extends Model
 
 
     protected $visible = [
+        'id',
         'user_id',
         'image_path',
         'title',

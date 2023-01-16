@@ -33,16 +33,18 @@ namespace App\Http\Controllers;
         echo $request;
 
         $image_path = $request->file('image')->store('images', 'public');
+
+
         $article = Article::create([
             'user_id' => $request->user_id,
             'title' => $request->title,
-            'image_path' => $image_path,
+            'image_path' => "http://localhost:8000/storage/" . $image_path,
             'body' => $request->body,
         ]);
         return response()->json([
             'status' => 'Success',
             'message' => 'article successfuly created',
-            'article' => $article
+            'article' =>  $article
         ], 200);
     }
 
