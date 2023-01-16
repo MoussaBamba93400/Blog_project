@@ -15,13 +15,15 @@ class Article extends Model
         'user_id',
         'image_path',
         'title',
+        'body'
     ];
 
 
     protected $visible = [
         'user_id',
         'image_path',
-        'title'
+        'title',
+        'body'
     ];
 
 }

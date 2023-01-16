@@ -7,12 +7,13 @@
     <link href="/css/main.css" rel="stylesheet">
     <title>Document</title>
     @vite(['resources/js/app.js','resources/css/app.css'])
-    
+
 </head>
 <body>
     <div id="app">
-      
+        <img src="http://localhost:8000/public/storage/images/Path.jpg">
+        
    </div>
-    
+
 </body>
 </html>

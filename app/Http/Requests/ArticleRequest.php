@@ -26,7 +26,7 @@ class ArticleRequest extends FormRequest
         return [
             'user_id' => 'required',
             'title' => 'required|string',
-            'image_path' => 'string',
+            'image_path' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'body' => 'string'
         ];
     }
