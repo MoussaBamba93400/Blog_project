@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Laravel\Sanctum\HasApiTokens;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+
 
 
 class AuthController extends Controller
@@ -20,8 +22,8 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials);
-        if (!$token) {
+
+        if (! Auth::attempt($credentials)) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
@@ -29,6 +31,8 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $token = $user->createToken('Token Name')->plainTextToken;
+
         return response()->json([
                 'status' => 'success',
                 'user' => $user,
@@ -41,7 +45,7 @@ class AuthController extends Controller
     }
 
     public function register(Request $request){
-        
+
 
         $user = User::create([
             'name' => $request->name,
@@ -49,7 +53,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::login($user);
+        $token = $user->createToken('Token Name')->plainTextToken;
+
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',

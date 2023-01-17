@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
-
-
+use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
