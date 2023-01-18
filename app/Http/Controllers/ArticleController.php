@@ -52,6 +52,8 @@ namespace App\Http\Controllers;
     {
         $article = Article::find($request->id);
 
+
+
         return response()->json([
             'status' => 'success',
             'article' => $article

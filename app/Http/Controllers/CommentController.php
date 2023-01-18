@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 
 
@@ -14,7 +16,10 @@ class CommentController extends Controller
     public function index(Request $request)
     {
 
-        $comments = Comment::where('article_id', $request->id)->get();
+        $comments = User::join('comments', 'users.id', '=', 'comments.user_id')
+        ->select('users.*', 'comments.*')
+        ->where('comments.article_id', '=', $request->id)
+        ->get();
 
         return response()->json([
             'message' => 'success',
@@ -24,8 +29,9 @@ class CommentController extends Controller
     }
 
 
-    public function create(CommentRequest $request)
+    public function create(Request $request)
     {
+
 
         $comment = Comment::create([
             'user_id' => $request->user_id,
@@ -37,7 +43,7 @@ class CommentController extends Controller
         return response()->json([
             'status' => 'Success',
             'message' => 'comment successfuly created',
-            'article' => $comment
+            'comment' => $comment
         ], 200);
     }
 

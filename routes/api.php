@@ -19,7 +19,7 @@ Route::put('v1/user/{id}', [AuthController::class, 'modify']);
 
 
 Route::post('v1/article', [ArticleController::class, 'create']);
-Route::get('v1/articles', [ArticleController::class, 'index'])->middleware(['auth:sanctum']);
+Route::get('v1/articles', [ArticleController::class, 'index']);
 
 Route::get('v1/article/{id}', [ArticleController::class, 'getArticle']);
 Route::put('v1/article/{id}', [ArticleController::class, 'modify']);
