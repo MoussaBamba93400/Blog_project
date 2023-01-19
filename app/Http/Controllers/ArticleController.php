@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
- use App\Http\Requests\ArticleRequest;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use App\Models\Article;
@@ -26,13 +25,20 @@ namespace App\Http\Controllers;
 
 
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
 
 
 
-        echo $request;
 
-        $image_path = $request->file('image')->store('images', 'public');
+            $image_path = $request->file('image')->store('images', 'public');
+
+
+
+
+
+
+
 
 
         $article = Article::create([
