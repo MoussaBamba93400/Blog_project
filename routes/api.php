@@ -28,7 +28,7 @@ Route::delete('v1/article/{id}', [ArticleController::class, 'delete']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('v1/article/{id}/comment', [CommentController::class, 'create']);
     Route::put('v1/comment/{id}', [CommentController::class, 'modify']);
-
+    Route::get('v1/article', [ArticleController::class, 'getMyArticle']);
 });
 
 Route::get('v1/article/{id}/comments', [CommentController::class, 'index']);

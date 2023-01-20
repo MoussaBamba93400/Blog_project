@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use App\Models\Article;
-
-
+use Illuminate\Support\Facades\Artisan;
 
     class ArticleController extends Controller
     {
@@ -34,13 +33,6 @@ namespace App\Http\Controllers;
             $image_path = $request->file('image')->store('images', 'public');
 
 
-
-
-
-
-
-
-
         $article = Article::create([
             'user_id' => $request->user_id,
             'title' => $request->title,
@@ -58,6 +50,21 @@ namespace App\Http\Controllers;
     {
         $article = Article::find($request->id);
 
+
+
+        return response()->json([
+            'status' => 'success',
+            'article' => $article
+        ]);
+
+    }
+
+
+
+    public function getMyArticle(Request $request)
+    {
+
+        $article = Article::where('user_id', $request->user_id)->get();
 
 
         return response()->json([
